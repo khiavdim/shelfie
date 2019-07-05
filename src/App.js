@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Dashboard from "./Components/Dashboard/Dashboard";
+import Form from "./Components/Form/Form";
+import Header from "./Components/Header/Header";
+import axios from "axios";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      products: [],
+      img: "",
+      name: "",
+      price: ""
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get("/api/inventory")
+      .then(res => {
+        this.setState({ products: res.data });
+      })
+      .catch(err => {
+        console.log("Error from server", err);
+      });
+  }
+
+  addProduct = newProduct => {
+    let { name, img, price } = newProduct;
+    axios
+      .post("/api/inventory", {
+        name,
+        img,
+        price
+      })
+      .then(res => {
+        this.setState({ products: res.data });
+      })
+      .catch(err => console.log("Error from server", err));
+  };
+
+  render() {
+    let { products, img, name, price } = this.state;
+    return (
+      <div className="App">
+        <Header />
+        <Dashboard products={products} img={img} name={name} price={price} />
+        <Form products={products} addProduct={this.addProduct} />
+      </div>
+    );
+  }
 }
 
 export default App;
