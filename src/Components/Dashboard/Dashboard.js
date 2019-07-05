@@ -3,7 +3,7 @@ import Product from "../Product/Product";
 
 class Dashboard extends Component {
   render() {
-    let { products, img, name, price, deleteProduct, id } = this.props;
+    let { products, img, name, price, deleteProduct, id, update} = this.props;
     return (
       <div>
         {products.map(product => {
@@ -15,6 +15,7 @@ class Dashboard extends Component {
               name={name}
               price={price}
               deleteProduct={deleteProduct}
+              update={update}
               id={id}
             />
           );

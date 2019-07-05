@@ -14,15 +14,8 @@ class Product extends Component {
     };
   }
 
-  handleChange = e => {
-    e.preventDefault();
-    let { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
   render() {
     let { img, name, price, default_img, id } = this.state;
-    let { deleteProduct } = this.props;
     return (
       <div className="productCard">
         <img className="displayImg" src={img || default_img} alt={name} />
@@ -32,10 +25,10 @@ class Product extends Component {
             <p>${price}</p>
           </div>
           <div className="modify">
-            <button className="productBtns" onClick={() => deleteProduct(id)}>
+            <button className="productBtns" onClick={() => this.props.deleteProduct(id)}>
               Delete
             </button>
-            <button className="productBtns">Edit</button>
+            <button className="productBtns" onClick={() => this.props.update(id)}>Edit</button>
           </div>
         </div>
       </div>

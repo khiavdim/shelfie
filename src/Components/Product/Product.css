@@ -1,6 +1,6 @@
 .displayImg {
   height: 200px;
-  max-width: 50%;
+  width: 50%;
 }
 
 .productCard {
@@ -16,11 +16,11 @@
 .productInfo {
   padding: 10px;
   width: 50%;
-  height: 100%
+  height: 100%;
 }
 
 .info {
-  height: 70%
+  height: 70%;
 }
 
 .modify {
@@ -33,5 +33,5 @@
 .productBtns {
   background: #3ad886;
   border: none;
-  border-radius: 5px
+  border-radius: 5px;
 }

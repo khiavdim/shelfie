@@ -28,6 +28,17 @@ class App extends Component {
       });
   }
 
+  componentDidUpdate() {
+    axios
+      .get("/api/inventory")
+      .then(res => {
+        this.setState({ products: res.data });
+      })
+      .catch(err => {
+        console.log("Error from server", err);
+      });
+  }
+
   addProduct = newProduct => {
     let { name, img, price } = newProduct;
     axios
@@ -51,6 +62,22 @@ class App extends Component {
       .catch(err => console.log("Could not delete", err));
   };
 
+  update = (id, product) => {
+    let { img, name, price } = product;
+    axios
+      .put(
+        `/api/inventory/${id}?img=${img}
+        &name=${name}
+        &price=${price}`
+      )
+      .then(res => {
+        this.setState({ products: res.data });
+      })
+      .catch(err => {
+        console.log("Could not update product", err);
+      });
+  };
+
   render() {
     let { products, img, name, price, id } = this.state;
     return (
@@ -63,9 +90,15 @@ class App extends Component {
             name={name}
             price={price}
             deleteProduct={this.deleteProduct}
+            update={this.update}
             id={id}
           />
-          <Form products={products} addProduct={this.addProduct} />
+          <Form
+            products={products}
+            addProduct={this.addProduct}
+            update={this.update}
+            id={id}
+          />
         </div>
       </div>
     );
