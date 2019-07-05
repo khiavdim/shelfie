@@ -12,7 +12,8 @@ class App extends Component {
       products: [],
       img: "",
       name: "",
-      price: ""
+      price: "",
+      id: ""
     };
   }
 
@@ -41,13 +42,31 @@ class App extends Component {
       .catch(err => console.log("Error from server", err));
   };
 
+  deleteProduct = id => {
+    axios
+      .delete(`/api/inventory/${id}`)
+      .then(res => {
+        this.setState({ products: res.data });
+      })
+      .catch(err => console.log("Could not delete", err));
+  };
+
   render() {
-    let { products, img, name, price } = this.state;
+    let { products, img, name, price, id } = this.state;
     return (
       <div className="App">
         <Header />
-        <Dashboard products={products} img={img} name={name} price={price} />
-        <Form products={products} addProduct={this.addProduct} />
+        <div className="bottom">
+          <Dashboard
+            products={products}
+            img={img}
+            name={name}
+            price={price}
+            deleteProduct={this.deleteProduct}
+            id={id}
+          />
+          <Form products={products} addProduct={this.addProduct} />
+        </div>
       </div>
     );
   }

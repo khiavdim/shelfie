@@ -1,9 +1,10 @@
 .greenBox {
   background: #3ad886;
-  height: 435px;
-  width: 30vw;
+  height: 475px;
+  width: 350px;
   padding: 20px;
   border-radius: 10px;
+  margin-top: 40px;
 }
 
 p {
